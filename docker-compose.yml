@@ -1,15 +1,34 @@
 version: "3.8"
 
 services:
-  movie-catalog-es:
-    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:$STACK_VERSION
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
     ports:
-      - 9200:9200
-      - 9300:9300
+      - ${ES_PORT}:${ES_PORT}
     environment:
       - discovery.type=single-node
       - xpack.security.enabled=false
-  movie-catalog-kibana:
-    image: docker.elastic.co/kibana/kibana:8.12.1
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  kibana:
+    depends_on:
+      - elasticsearch
+    image: docker.elastic.co/kibana/kibana:${STACK_VERSION}
+    volumes:
+      - kibana-data:/usr/share/kibana/data
     ports:
-      - 5601:5601
+      - ${KIBANA_PORT}:${KIBANA_PORT}
+    restart: always
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:${ES_PORT}
+
+volumes:
+  elasticsearch-data:
+    driver: local
+  kibana-data:
+    driver: local

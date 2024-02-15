@@ -44,5 +44,35 @@ Using Docker / Docker-Compose to package the web server and database simplifies 
 ## Startup Instruction
 
 1. Run `docker compose up` to start all services.
+2. Open [`Dev Tools Console`](http://localhost:5601/app/dev_tools#/console) in Kibana and run the following commands to create movies index and seed with data.
+
+```
+PUT movies
+{
+  "mappings": {
+    "properties": {
+      "title": { "type": "text" },
+      "director": { "type": "text" },
+      "releaseYear": { "type": "integer" },
+      "genre": { "type": "text" },
+      "description": {"type": "text"}
+    }
+  }
+}
+```
+
+3. Seed movie data into ElasticSearch database by running the following commands:
+
+```text
+POST movies/_bulk
+// paste text from seed-data.json file here
+```
+
+3. Verify the data in the index
+
+```text
+GET movies/_search
+{ "query": { "match_all": {}}}
+```
 
 ## Using the API
