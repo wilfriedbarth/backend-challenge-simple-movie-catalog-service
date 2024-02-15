@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  movie-catalog-es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.1
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+  movie-catalog-kibana:
+    image: docker.elastic.co/kibana/kibana:8.12.1
+    ports:
+      - 5601:5601
