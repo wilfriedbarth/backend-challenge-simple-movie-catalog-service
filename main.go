@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -25,6 +26,9 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /movies", getMovies)
+	mux.HandleFunc("POST /movies", createMovie)
+	mux.HandleFunc("PUT /movies/:title", updateMovie)
+	mux.HandleFunc("DEL /movies/:title", deleteMovie)
 
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
@@ -33,15 +37,48 @@ func main() {
 }
 
 func getMovies(w http.ResponseWriter, r *http.Request) {
-	esRes, esErr := es.Search().
-		Index("movies").
-		Request(&search.Request{
-			Query: &types.Query{
-				MatchAll: &types.MatchAllQuery{},
-			},
-		}).Do(context.Background())
+	title := r.URL.Query().Get("title")
+	genre := r.URL.Query().Get("genre")
+
+	var esRes *search.Response
+	var esErr error
+
+	if title != "" {
+		fmt.Printf("Searching by title... %s", title)
+		esRes, esErr = es.Search().
+			Index("movies").
+			Request(&search.Request{
+				Query: &types.Query{
+					QueryString: &types.QueryStringQuery{
+						Fields: []string{"title"},
+						Query:  title,
+					},
+				},
+			}).Do(context.Background())
+	} else if genre != "" {
+		fmt.Printf("Searching by genre... %s", genre)
+		esRes, esErr = es.Search().
+			Index("movies").
+			Request(&search.Request{
+				Query: &types.Query{
+					QueryString: &types.QueryStringQuery{
+						Fields: []string{"genre"},
+						Query:  genre,
+					},
+				},
+			}).Do(context.Background())
+	} else {
+		esRes, esErr = es.Search().
+			Index("movies").
+			Request(&search.Request{
+				Query: &types.Query{
+					MatchAll: &types.MatchAllQuery{},
+				},
+			}).Do(context.Background())
+	}
 
 	if esErr != nil {
+		fmt.Printf("Elasticsearch Error: %s", esErr)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
@@ -64,4 +101,13 @@ func getMovies(w http.ResponseWriter, r *http.Request) {
 
 	w.Write(jsonRes)
 	return
+}
+
+func createMovie(w http.ResponseWriter, r *http.Request) {
+}
+
+func updateMovie(w http.ResponseWriter, r *http.Request) {
+}
+
+func deleteMovie(w http.ResponseWriter, r *http.Request) {
 }
