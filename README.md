@@ -24,22 +24,12 @@ for using a NoSQL solution (ElasticSearch) over a SQL solution.
 4. Movies are stored as simple JSON documents in an index and are schema free. As documents are added with new fields, the mappings are automatically updated and older documents will have the associated fields automatically added.
 5. ElasticSearch has a convenient API to search across multiple fields (multi_match query).
 
-For comparison, if I did select a SQL solution, here are the advantages for that solution.
-
-1. Data integrity - atomicity, consistency, isolation, durability (ACID)
-2. SQL databases scale vertically via CPUs or memory
-3. Efficient at processing queries and joining data across tables.
-4. More mature technology (i.e. most developers know how to use it)
-
 My decision to choose ElasticSearch over SQL solution is primarily motivated by search performance and horizontal scalability. Given the scope of the service (movie catalog) I did not
-think it was necessary to opt for an SQL solution. If this had been a service with a wider
-scope (i.e. supporting multiple APIs for movies, actors, reviews, etc), I would choose a SQL solution that allowed for queries across multiple tables.
+think it was necessary to opt for an SQL solution.
 
 ### Docker / Docker-Compose
 
-Using Docker / Docker-Compose to package the web server and database simplifies local development.
-
-- For deploying to testing / production environments, Kubernetes or manages solutions like ECS and Fargate would be my choice to efficient handle scaling of web servers and ElasticSearch. In the interest of time, I will ignore this for now.
+Using Docker / Docker-Compose to package the database simplifies local development.
 
 ## Startup Instruction
 
@@ -130,4 +120,7 @@ Verify with call to GET movies
 3. Consider a Kubernetes deployment to scale to test, int and prod
 4. Improve error handling
 
-NOTE: I discovered during development that ElasticSearch does not sync updates immediately. This is one downside that I missed during my initial design. In retrospect, going with a more mature technology (SQL) would have been a better choice to ensure atomic transactions.
+NOTE: I discovered during development that ElasticSearch does not sync updates immediately. This is one downside that I missed during my initial design. In retrospect, going with a more mature technology (SQL) would have been a better choice given the following advantages.
+
+1. Data integrity - atomicity, consistency, isolation, durability (ACID)
+2. More mature technology (i.e. most developers know how to use it)
