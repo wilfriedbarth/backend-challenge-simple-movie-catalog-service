@@ -1,12 +1,12 @@
-{ "index": { "_index": "movies", "_id": "1" } }
+{ "index": { "_index": "movies" } }
 { "title": "Spirited Away", "director": "Hayao Miyazaki", "releaseYear": 2001, "genre": "Anime", "description": "In this animated feature by noted Japanese director Hayao Miyazaki, 10-year-old Chihiro (Rumi Hiiragi) and her parents (Takashi Naitô, Yasuko Sawaguchi) stumble upon a seemingly abandoned amusement park. After her mother and father are turned into giant pigs, Chihiro meets the mysterious Haku (Miyu Irino), who explains that the park is a resort for supernatural beings who need a break from their time spent in the earthly realm, and that she must work there to free herself and her parents." }
-{ "index": { "_index": "movies", "_id": "2" } }
+{ "index": { "_index": "movies" } }
 { "title": "Castle in the Sky", "director": "Hayao Miyazaki", "releaseYear": 1986, "genre": "Anime", "description": "Young orphan Sheeta and her kidnapper, Col. Muska, are flying to a military prison when their plane is attacked by a gang of air pirates led by the matronly Dola. Escaping from a mid-air collision via a magic crystal around her neck, Sheeta meets fellow orphan Pazu and the pair join forces to discover the mystical floating city of Laputa while pursued by both Muska and the pirates, who lust for the city's myriad treasures." }
-{ "index": { "_index": "movies", "_id": "3" } }
+{ "index": { "_index": "movies" } }
 { "title": "The Boy and the Heron", "director": "Hayao Miyazaki", "releaseYear": 2023, "genre": "Anime", "description": "Mahito, a young 12-year-old boy, struggles to settle in a new town after his mother's death. However, when a talking heron informs Mahito that his mother is still alive, he enters an abandoned tower in search of her, which takes him to another world." }
-{ "index": { "_index": "movies", "_id": "4" } }
+{ "index": { "_index": "movies" } }
 { "title": "There Will Be Blood", "director": "Paul Thomas Anderson", "releaseYear": 2007, "genre": "Drama", "description": "Ruthless silver miner, turned oil prospector, Daniel Plainview moves to oil-rich California. Using his adopted son HW to project a trustworthy, family-man image, Plainview cons local landowners into selling him their valuable properties for a pittance. However, local preacher Eli Sunday suspects Plainviews motives and intentions, starting a slow-burning feud that threatens both their lives." }
-{ "index": { "_index": "movies", "_id": "5" } }
+{ "index": { "_index": "movies" } }
 { "title": "Lincoln", "director": "Steven Spielberg", "releaseYear": 2012, "genre": "Historical Fiction", "description": "With the nation embroiled in still another year with the high death count of Civil War, President Abraham Lincoln brings the full measure of his passion, humanity and political skill to what would become his defining legacy: to end the war and permanently abolish slavery through the 13th Amendment. Having great courage, acumen and moral fortitude, Lincoln pushes forward to compel the nation, and those in government who oppose him, to aim toward a greater good for all mankind." }
-{ "index": { "_index": "movies", "_id": "6" } }
+{ "index": { "_index": "movies" } }
 { "title": "Gangs of New York", "director": "Martin Scorsese", "releaseYear": 2002, "genre": "Thriller", "description": "Amsterdam Vallon (Leonardo DiCaprio) is a young Irish immigrant released from prison. He returns to the Five Points seeking revenge against his father's killer, William Cutting (Daniel Day-Lewis), a powerful anti-immigrant gang leader. He knows that revenge can only be attained by infiltrating Cutting's inner circle. Amsterdam's journey becomes a fight for personal survival and to find a place for the Irish people in 1860's New York." }

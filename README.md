@@ -64,15 +64,70 @@ PUT movies
 3. Seed movie data into ElasticSearch database by running the following commands:
 
 ```text
+// Insert data into index
 POST movies/_bulk
 // paste text from seed-data.json file here
-```
 
-3. Verify the data in the index
-
-```text
+// Retrieve all movies to verify
 GET movies/_search
 { "query": { "match_all": {}}}
 ```
 
+4. Start local Go server by running `air`
+
 ## Using the API
+
+```text
+// GET movies
+curl --location 'http://localhost:8080/movies'
+
+// GET movies, search on title
+curl --location 'http://localhost:8080/movies?title=spirited%20away'
+
+// GET movies, search on genre
+curl --location 'http://localhost:8080/movies?genre=anime'
+
+// GET movie by id
+curl --location 'http://localhost:8080/movies/REPLACE_WITH_YOUR_ID'
+
+// POST movie
+curl --location 'http://localhost:8080/movies' \
+--header 'Content-Type: application/json' \
+--data '{
+  "title": "The Matrix",
+  "director": "Lana Wachowski",
+  "releaseYear": 1999,
+  "genre": "Science Fiction",
+  "description": "Neo (Keanu Reeves) believes that Morpheus (Laurence Fishburne), an elusive figure considered to be the most dangerous man alive, can answer his question -- What is the Matrix? Neo is contacted by Trinity (Carrie-Anne Moss), a beautiful stranger who leads him into an underworld where he meets Morpheus. They fight a brutal battle for their lives against a cadre of viciously intelligent secret agents. It is a truth that could cost Neo something more precious than his life."
+}'
+
+// PUT movie
+curl --location 'http://localhost:8080/movies/REPLACE_WITH_YOUR_ID' \
+--header 'Content-Type: application/json' \
+--data '{
+  "title": "The Matrixxxxxxx",
+  "director": "Lana Wachowski",
+  "releaseYear": 1999,
+  "genre": "Science Fiction",
+  "description": "Neo (Keanu Reeves) believes that Morpheus (Laurence Fishburne), an elusive figure considered to be the most dangerous man alive, can answer his question -- What is the Matrix? Neo is contacted by Trinity (Carrie-Anne Moss), a beautiful stranger who leads him into an underworld where he meets Morpheus. They fight a brutal battle for their lives against a cadre of viciously intelligent secret agents. It is a truth that could cost Neo something more precious than his life."
+}'
+
+Verify with call to GET movies
+
+** NOTE: The update operation is not immediate 100% of the time... This is one of the downsides of Elasticsearch as a data store
+
+// DELETE movie
+curl --location --request DELETE 'http://localhost:8080/movies/rw9Zx40B82ztFqczEZwu' \
+--data ''
+
+Verify with call to GET movies
+```
+
+## TODOS
+
+1. Add testing
+2. Dockerize go server and add to docker-compose setup.
+3. Consider a Kubernetes deployment to scale to test, int and prod
+4. Improve error handling
+
+NOTE: I discovered during development that ElasticSearch does not sync updates immediately. This is one downside that I missed during my initial design. In retrospect, going with a more mature technology (SQL) would have been a better choice to ensure atomic transactions.
