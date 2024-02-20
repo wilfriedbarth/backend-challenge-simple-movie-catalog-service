@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
@@ -44,7 +45,7 @@ func getMovies(w http.ResponseWriter, r *http.Request) {
 	var esErr error
 
 	if title != "" {
-		fmt.Printf("Searching by title... %s", title)
+		fmt.Printf("Searching by title - %s", title)
 		esRes, esErr = es.Search().
 			Index("movies").
 			Request(&search.Request{
@@ -56,7 +57,7 @@ func getMovies(w http.ResponseWriter, r *http.Request) {
 				},
 			}).Do(context.Background())
 	} else if genre != "" {
-		fmt.Printf("Searching by genre... %s", genre)
+		fmt.Printf("Searching by genre - %s", genre)
 		esRes, esErr = es.Search().
 			Index("movies").
 			Request(&search.Request{
@@ -104,6 +105,13 @@ func getMovies(w http.ResponseWriter, r *http.Request) {
 }
 
 func createMovie(w http.ResponseWriter, r *http.Request) {
+	b, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	fmt.Printf("%s", b)
 }
 
 func updateMovie(w http.ResponseWriter, r *http.Request) {
